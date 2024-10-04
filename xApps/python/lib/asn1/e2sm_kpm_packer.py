@@ -125,12 +125,11 @@ class e2sm_kpm_packer(object):
         action_def = self.asn1_compiler.encode('E2SM-KPM-ActionDefinition', action_def)
         return action_def
 
-    def unpack_indication_header_format1(self, msg_bytes):
-        indication_hdr = self.asn1_compiler.decode('E2SM-KPM-IndicationHeader-Format1', msg_bytes)
-        return indication_hdr
-
     def unpack_indication_header(self, msg_bytes):
-        return self.unpack_indication_header_format1(msg_bytes)
+        indication_hdr = self.asn1_compiler.decode('E2SM-KPM-IndicationHeader', msg_bytes)
+        indication_hdr = indication_hdr['indicationHeader-formats'][1]
+        print(indication_hdr)
+        return indication_hdr
 
     def unpack_indication_message(self, msg_bytes):
         indication_msg = self.asn1_compiler.decode('E2SM-KPM-IndicationMessage', msg_bytes)
