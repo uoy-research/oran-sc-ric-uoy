@@ -16,10 +16,7 @@ class CellOffXapp(xAppBase):
     @xAppBase.start_function
     def start(self, cell_id):
         while self.running:
-            current_time = datetime.datetime.now()
-            print("{} Sending Cell Off Request to cell ID: {}".format(current_time.strftime("%H:%M:%S"), cell_id))
-            
-            # Sending the control command to turn off the cell
+            print("Sending the control command to turn off the cell")
             self.e2sm_rc.control_cell_power_state(cell_id,ack_request=1)
 
 
