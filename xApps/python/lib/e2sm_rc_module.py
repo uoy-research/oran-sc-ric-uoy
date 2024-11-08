@@ -91,25 +91,25 @@ class e2sm_rc_module(object):
                     {
                         'ranParameter-ID': 1,
                         'ranParameter-valueType': ('ranP-Choice-ElementFalse', {
-                            'ranParameter-value': ('valueString', "ES: Cell Power On Off")
+                            'ranParameter-value': ('valuePrintableString', "ES: Cell Power On Off")
                         })
                     },
                     {
                         'ranParameter-ID': 2,
                         'ranParameter-valueType': ('ranP-Choice-ElementFalse', {
-                            'ranParameter-value': ('valueString', cell_id)
+                            'ranParameter-value': ('valuePrintableString', cell_id)
                         })
                     },
                     {
                         'ranParameter-ID': 3,
                         'ranParameter-valueType': ('ranP-Choice-ElementFalse', {
-                            'ranParameter-value': ('valueString', "turn off")
+                            'ranParameter-value': ('valuePrintableString', "turn off")
                         })
                     },
                     {
                         'ranParameter-ID': 4,
                         'ranParameter-valueType': ('ranP-Choice-ElementFalse', {
-                            'ranParameter-value': ('valueString', "xApp request")
+                            'ranParameter-value': ('valuePrintableString', "xApp request")
                         })
                     }
                 ]
