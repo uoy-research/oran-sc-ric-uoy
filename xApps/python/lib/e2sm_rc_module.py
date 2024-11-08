@@ -70,5 +70,21 @@ class e2sm_rc_module(object):
         payload = self._build_ric_control_request(control_header, control_msg, ack_request)
         self.parent.rmr_send(e2_node_id, payload, 12040, retries=1)
 
+    def control_cell_power_state(self, cell_id, ack_request=1):
+
+        ue_id = ('gNB-DU-UEID', {'gNB-CU-UE-F1AP-ID': 'test'})
+        control_header = self.e2sm_rc_compiler.pack_ric_control_header_f1(style_type=2, control_action_id=6, ue_id_tuple="test")
+
+        control_msg_dict = {
+            "type": "ES: Cell Power On Off",
+            "cell": cell_id,
+    	    "action": "turn off",
+            "reason": "xApp request"
+        }
+
+        control_msg = self.e2sm_rc_compiler.pack_ric_control_msg(control_msg_dict)
+        payload = self._build_ric_control_request(control_header, control_msg, ack_request)
+        self.parent.rmr_send(e2_node_id, payload, 12040, retries=1)
+
     # Alias with a nice name
     control_slice_level_prb_quota = send_control_request_style_2_action_6
