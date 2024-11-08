@@ -72,6 +72,7 @@ class e2sm_rc_module(object):
 
     def control_cell_power_state(self, cell_id, ack_request=1):
 
+        print("cell id received", cell_id)
         ue_id = ('gNB-DU-UEID', {'gNB-CU-UE-F1AP-ID': 'test'})
         control_header = self.e2sm_rc_compiler.pack_ric_control_header_f1(style_type=2, control_action_id=6, ue_id_tuple="test")
 
@@ -85,6 +86,7 @@ class e2sm_rc_module(object):
         control_msg = self.e2sm_rc_compiler.pack_ric_control_msg(control_msg_dict)
         payload = self._build_ric_control_request(control_header, control_msg, ack_request)
         self.parent.rmr_send(e2_node_id, payload, 12040, retries=1)
+        print("control reached")
 
     # Alias with a nice name
     control_slice_level_prb_quota = send_control_request_style_2_action_6

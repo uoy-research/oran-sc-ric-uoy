@@ -43,4 +43,5 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, cellOffXapp.signal_handler)
 
     # Start xApp with the target cell ID
-    cellOffXapp.start(cell_id)
+    # cellOffXapp.start(cell_id)
+    cellOffXapp.start("S9/N77/C1")
