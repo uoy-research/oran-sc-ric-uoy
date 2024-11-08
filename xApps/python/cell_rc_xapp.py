@@ -17,7 +17,7 @@ class CellOffXapp(xAppBase):
     def start(self, cell_id, ue_id):
         while self.running:
             print("Sending the control command to turn off the cell")
-            self.e2sm_rc.control_cell_power_state(cell_id,ack_request=1)
+            self.e2sm_rc.control_cell_power_state(cell_id, ue_id, ack_request=1)
 
 
 if __name__ == '__main__':
