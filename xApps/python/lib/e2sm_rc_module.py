@@ -70,23 +70,63 @@ class e2sm_rc_module(object):
         payload = self._build_ric_control_request(control_header, control_msg, ack_request)
         self.parent.rmr_send(e2_node_id, payload, 12040, retries=1)
 
+
     def control_cell_power_state(self, cell_id, ue_id, e2_node_id, ack_request=1):
+    print("cell id received", cell_id)
+    
+    # Setting up UE ID tuple
+    ue_id = ('gNB-DU-UEID', {'gNB-CU-UE-F1AP-ID': ue_id})
+    
+    # Pack the control header
+    control_header = self.e2sm_rc_compiler.pack_ric_control_header_f1(
+        style_type=2,
+        control_action_id=6,
+        ue_id_tuple=ue_id
+    )
 
-        print("cell id received", cell_id)
-        ue_id = ('gNB-DU-UEID', {'gNB-CU-UE-F1AP-ID': ue_id})
-        control_header = self.e2sm_rc_compiler.pack_ric_control_header_f1(style_type=2, control_action_id=6, ue_id_tuple=ue_id)
+    # Define control message dictionary
+    control_msg_dict = {
+        'ric-controlMessage-formats': ('controlMessage-Format1', {
+            'ranP-List': [
+                {
+                    'ranParameter-ID': 1,
+                    'ranParameter-valueType': ('ranP-Choice-ElementFalse', {
+                        'ranParameter-value': ('valueString', "ES: Cell Power On Off")
+                    })
+                },
+                {
+                    'ranParameter-ID': 2,
+                    'ranParameter-valueType': ('ranP-Choice-ElementFalse', {
+                        'ranParameter-value': ('valueString', cell_id)
+                    })
+                },
+                {
+                    'ranParameter-ID': 3,
+                    'ranParameter-valueType': ('ranP-Choice-ElementFalse', {
+                        'ranParameter-value': ('valueString', "turn off")
+                    })
+                },
+                {
+                    'ranParameter-ID': 4,
+                    'ranParameter-valueType': ('ranP-Choice-ElementFalse', {
+                        'ranParameter-value': ('valueString', "xApp request")
+                    })
+                }
+            ]
+        })
+    }
 
-        control_msg_dict = {
-            "type": "ES: Cell Power On Off",
-            "cell": cell_id,
-    	    "action": "turn off",
-            "reason": "xApp request"
-        }
+    # Pack control message
+    control_msg = self.e2sm_rc_compiler.pack_ric_control_msg(control_msg_dict)
+    
+    # Build payload
+    payload = self._build_ric_control_request(control_header, control_msg, ack_request)
+    
+    # Send payload
+    self.parent.rmr_send(e2_node_id, payload, 12040, retries=1)
+    
+    print("control reached")
 
-        control_msg = self.e2sm_rc_compiler.pack_ric_control_msg(control_msg_dict)
-        payload = self._build_ric_control_request(control_header, control_msg, ack_request)
-        self.parent.rmr_send(e2_node_id, payload, 12040, retries=1)
-        print("control reached")
 
     # Alias with a nice name
     control_slice_level_prb_quota = send_control_request_style_2_action_6
