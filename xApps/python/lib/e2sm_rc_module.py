@@ -70,11 +70,11 @@ class e2sm_rc_module(object):
         payload = self._build_ric_control_request(control_header, control_msg, ack_request)
         self.parent.rmr_send(e2_node_id, payload, 12040, retries=1)
 
-    def control_cell_power_state(self, cell_id, ack_request=1):
+    def control_cell_power_state(self, cell_id, ue_id, ack_request=1):
 
         print("cell id received", cell_id)
-        ue_id = ('gNB-DU-UEID', {'gNB-CU-UE-F1AP-ID': 'test'})
-        control_header = self.e2sm_rc_compiler.pack_ric_control_header_f1(style_type=2, control_action_id=6, ue_id_tuple="test")
+        ue_id = ('gNB-DU-UEID', {'gNB-CU-UE-F1AP-ID': ue_id})
+        control_header = self.e2sm_rc_compiler.pack_ric_control_header_f1(style_type=2, control_action_id=6, ue_id_tuple=ue_id)
 
         control_msg_dict = {
             "type": "ES: Cell Power On Off",
