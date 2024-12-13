@@ -1,6 +1,6 @@
 # Custom OSC RIC for VIAVI Tester
 
-<a href="https://drive.google.com/file/d/1-q2HnX_2NywSyFFV06pchVEcJUlWvjjs/view?usp=sharing" target="_blank"><h1>Demo of the setup</h1></a>
+<a href="https://drive.google.com/file/d/1-q2HnX_2NywSyFFV06pchVEcJUlWvjjs/view?usp=sharing" target="_blank">Demo of the setup</a>
 
 ## Running the OSC RIC
 
